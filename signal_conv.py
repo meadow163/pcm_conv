@@ -40,13 +40,21 @@ def read_pcm(pcm_path,sample_rate = 16000,num_channel = 1):
     # print('data length = ',len(pcm_data))
     return (pcm_data / (2.**15))
 
+def data_conv(data,rir):
+      return  np.convolve(data,rir,'full') 
+
+
 list_name = []
 pcm_path = '/search/speech/cuiguohui/'
+clean_data = read_pcm('clean.pcm',16000,2)
 if __name__ =='__main__':
     listdir(pcm_path,list_name)
     print('list name is :',len(list_name))
-    fs = 16000
-    num_channel = 2
+    for file in list_name[0]:
+        rir_data = read_pcm(pcm_path,fs,2)
+        data_conv(clean,rir_data)
+
+
 
 
 
