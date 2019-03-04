@@ -40,11 +40,11 @@ def read_pcm(pcm_path,sample_rate = 16000,num_channel = 1):
     # print('data length = ',len(pcm_data))
     return (pcm_data / (2.**15))
 
-
+list_name = []
+pcm_path = 
 if __name__ =='__main__':
-    pcm_path = 
-    L =  file_name(pcm_path)
-    print('file list length is :',len(L))
+    listdir(pcm_path,list_name)
+    print('list name is :',len(list_name))
     fs = 16000
     num_channel = 2
 
