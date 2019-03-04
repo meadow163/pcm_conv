@@ -29,7 +29,6 @@ def listdir(path, list_name):
         elif os.path.splitext(file_path)[1]=='.pcm':
             list_name.append(file_path)
 
-'''
 def read_pcm(pcm_path,sample_rate = 16000,num_channel = 1):
 
     voice_data = AudioSegment.from_file(
@@ -40,19 +39,19 @@ def read_pcm(pcm_path,sample_rate = 16000,num_channel = 1):
 
     pcm_data = np.array(voice_data.get_array_of_samples())
     return (pcm_data / (2.**15))
+
+
 '''
-
-
 def read_pcm2(pcm_path):
-	data = np.memmap(pcm_path,dtpye = 'h',mode = 'r')
+	data = np.memmap(pcm_path,dtpye = 'float32',mode = 'r')
 	print('value',data)
-
+'''
 def data_conv(data,rir):
       return  np.convolve(data,rir,'full') 
 
 
 list_name = []
-clean_data = read_pcm2('clean.pcm')
+clean_data = read_pcm('clean.pcm',16000,2)
 if __name__ =='__main__':
 
     if len(sys.argv < 2):
@@ -64,9 +63,6 @@ if __name__ =='__main__':
     for file in list_name[0]:
         rir_data = read_pcm2(pcm_path,fs,2)
         data_conv(clean,rir_data)
-
-
-
 
 
 
