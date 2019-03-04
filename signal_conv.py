@@ -2,6 +2,9 @@
 # read the dir and get all the name path
 import os
 import numpy as np
+import sys
+# from pydub import AudioSegment
+
 def get_path_name_list(file_dir):
     for root, dirs, files in os.walk(file_dir):
         print(root) #当前目录路径i
@@ -26,7 +29,7 @@ def listdir(path, list_name):
         elif os.path.splitext(file_path)[1]=='.pcm':
             list_name.append(file_path)
 
-
+'''
 def read_pcm(pcm_path,sample_rate = 16000,num_channel = 1):
 
     voice_data = AudioSegment.from_file(
@@ -36,22 +39,30 @@ def read_pcm(pcm_path,sample_rate = 16000,num_channel = 1):
         channels = num_channel)
 
     pcm_data = np.array(voice_data.get_array_of_samples())
-    # print(pcm_data)
-    # print('data length = ',len(pcm_data))
     return (pcm_data / (2.**15))
+'''
+
+
+def read_pcm2(pcm_path):
+	data = np.memmap(pcm_path,dtpye = 'h',mode = 'r')
+	print('value',data)
 
 def data_conv(data,rir):
       return  np.convolve(data,rir,'full') 
 
 
 list_name = []
-pcm_path = '/search/speech/cuiguohui/'
-clean_data = read_pcm('clean.pcm',16000,2)
+clean_data = read_pcm2('clean.pcm')
 if __name__ =='__main__':
+
+    if len(sys.argv < 2):
+	print('para error')
+
+
     listdir(pcm_path,list_name)
     print('list name is :',len(list_name))
     for file in list_name[0]:
-        rir_data = read_pcm(pcm_path,fs,2)
+        rir_data = read_pcm2(pcm_path,fs,2)
         data_conv(clean,rir_data)
 
 
